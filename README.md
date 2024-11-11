@@ -24,14 +24,16 @@ The project aims to establish a classification threshold that approves 90% of or
 analyze order distributions, and assess various business metrics to inform decisions on profitability, pricing, and risk factors <br>
 associated with chargebacks and different product types (digital vs. tangible).
 
+
 **Description:**<br>
 This code performs a comprehensive analysis of e-commerce order data from a CSV file.<br>
 Key tasks include calculating an approval threshold, visualizing order distribution, analyzing revenue-related metrics, assessing <br>
 product risk by type, and extracting insights on customer behavior and order sources.
 
-<img width="812" alt="Screenshot 2024-11-07 at 20 19 39" src="https://github.com/user-attachments/assets/9d243ce3-f8d1-48d0-9e1f-d5ed6ee0f448">
 
 
-<img width="812" alt="Screenshot 2024-11-07 at 20 20 05" src="https://github.com/user-attachments/assets/dc8e43f8-ca76-4e16-b8f7-9fb657785647">
-
-
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 22" src="https://github.com/user-attachments/assets/31cab23b-036a-4d56-8eba-8622d5f7b1cd">
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 06" src="https://github.com/user-attachments/assets/81560cf2-91ca-40f7-8398-ee6c21d5de3c">
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 59" src="https://github.com/user-attachments/assets/44601818-12f7-46cf-8e81-7e51adf26ac2">
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 51" src="https://github.com/user-attachments/assets/9c56f021-673b-4d43-a67b-ca971e8e5cc6">
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 33" src="https://github.com/user-attachments/assets/79b04330-913c-4777-9c7e-df66a3ffc232">
