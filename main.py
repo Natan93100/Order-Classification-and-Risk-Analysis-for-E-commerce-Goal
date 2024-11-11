@@ -98,3 +98,5 @@ print(f"Web Chargeback Rate: {web_cb_rate:.2%}, Mobile App Chargeback Rate: {mob
 print(f"\nSummary of Results:\n- Decline Threshold: {decline_threshold}\n- Business Model Fee Required: {business_model_fee:.2%}")
 print(f"- Digital Product Risk: Digital products show {'higher' if digital_cb_rate > non_digital_cb_rate else 'lower'} risk compared to tangible products.")
 print(f"- Web orders have {'higher' if web_cb_rate > mobile_cb_rate else 'lower'} risk than mobile app orders.")
+
+
