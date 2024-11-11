@@ -1,200 +1,100 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import math
+from scipy import stats
 
 file_path = 'MH_home_task_dataset_(3).csv'
 df = pd.read_csv(file_path)
 
-'''
-1.
-We are asked to set the decline bar so that 90% of the total orders will be approved.
-Translating that number, we want 36,742 orders to be approved given they are sorted by classification rates .
-'''
+### Task 1: Setting the Decline Threshold for 90% Approval Rate
+# We sort and use quantile directly for simplicity and efficiency.
+decline_threshold = df['classification_score'].quantile(0.1)
 
-# let's sort the orders by the classification_score column:
-sorted_df = df.sort_values(by='classification_score', ascending=False)
+# Confirm the threshold results in 90% approval.
+approved_orders = df[df['classification_score'] >= decline_threshold]
+approval_rate = len(approved_orders) / len(df)
+print(f"Decline threshold: {decline_threshold}, Approval rate: {approval_rate:.2%}")
 
-# let's get the 36,742nd row's classification_score:
-quantile_int = math.ceil(0.9 * df.index[-1])
-decline_threshold = sorted_df.iloc[quantile_int]['classification_score']
-
-
-# let's verify the threshold is unique and if not fix the row number and its value accordingly by using recursion:
-def after_search(quantile_int, decline_threshold):
-    for i in range(quantile_int + 1, df.index[-1]):
-        # non_unique_scores:
-        if decline_threshold == sorted_df.iloc[i]['classification_score']:
-            pass
-        # in case the first condition doesn't apply, meaning the threshold is unique:
-        elif i == quantile_int + 1:
-            break
-        # finding the new size and row number of the df and threshold; calling the function again:
-        else:
-            new_df_size = df.index[-1] - (i - quantile_int)
-            new_quantile_int = round(new_df_size * 0.9)
-            after_search(new_quantile_int, decline_threshold)
-            return
-
-
-def before_search(quantile_int, decline_threshold):
-    for i in range(quantile_int + 1, df.index[0], -1):
-        # non_unique_scores:
-        if decline_threshold == sorted_df.iloc[i]['classification_score']:
-            pass
-        # in case the first condition doesn't apply, meaning the threshold is unique:
-        elif i == quantile_int + 1:
-            new_quantile_int = i
-            break
-        # finding the new size and row number of the df and threshold; calling the function again:
-        else:
-            new_df_size = df.index[-1] - (i - quantile_int)
-            new_quantile_int = round(new_df_size * 0.9)
-            before_search(new_quantile_int, decline_threshold)
-            return
-
-
-# an integrative function
-def unique_search(quantile_int, decline_threshold):
-    before_search(quantile_int, decline_threshold)
-    after_search(quantile_int, decline_threshold)
-
-
-unique_search(quantile_int, decline_threshold)
-
-'''
-logic explained : if row is not unique we'll find the amount
-of rows containing the same classification_score and minimize the df size
-resulting in a new row number needed to be calculated.
-we'll recur the process till the decline threshold is unique in its area
-'''
-
-'''
-2.
-We are asked to plot the model distribution.
-It seems a histogram will work best since we model a 2D table data.
-'''
-
-plt.hist(df['classification_score'], bins=30)
-plt.title('classification ccore distribution')
-plt.xlabel('classification score')
-plt.ylabel('orders count')
+### Task 2: Plotting the Model Score Distribution
+plt.hist(df['classification_score'], bins=30, color='skyblue', edgecolor='black')
+plt.axvline(decline_threshold, color='red', linestyle='--', label=f'Threshold ({decline_threshold:.2f})')
+plt.title('Classification Score Distribution with Decline Threshold')
+plt.xlabel('Classification Score')
+plt.ylabel('Order Count')
+plt.legend()
 plt.show()
 
-'''
-3.
-We are asked the calculate the fee based on the model which 
-ensures that the sum of CHBs incurred won't exceed 50% of the revenue.
-'''
-# let's firstly calculate the CHB sum:
+### Task 3: Calculating the Business Model Fee
+# Calculate total CHB amount and required revenue based on a 50% CHB/revenue ratio.
+total_chb = df[df['order_status'] == 'chargeback']['price'].sum()
+required_revenue = 2 * total_chb  # Revenue needed for a 50% CHB cost-to-revenue ratio
+total_price = df['price'].sum()
 
-CHBs_sum = df[df['order_status'] == 'chargeback']['price'].sum()
-# meaning that the revenue needs to be 2*CHBs_sum
-Revenue = 2 * CHBs_sum
-# Now let's find the fee, based on the sum of prices:
+# Calculate the business model fee as a percentage.
+business_model_fee = required_revenue / total_price
+print(f"Business model fee required: {business_model_fee:.2%}")
 
-business_model_fee = Revenue / df['price'].sum()
-# basically we looked for the multiplier of the sum of the prices which will result in Revenue.
+### Task 4: Risk Analysis of Digital vs. Tangible Products
+# Calculate the mean classification score and chargeback rate for digital and non-digital products.
+digital_mean_score = df[df['digital_product'] == True]['classification_score'].mean()
+non_digital_mean_score = df[df['digital_product'] == False]['classification_score'].mean()
 
-'''
-4.
-We are asked to analyze the risk of digital vs tangible products.
-we'll check the mean as well the amount of chargebacks for each segment to asses the risk.
+# T-test for significant difference in classification scores
+t_stat, p_val = stats.ttest_ind(df[df['digital_product'] == True]['classification_score'],
+                                 df[df['digital_product'] == False]['classification_score'],
+                                 equal_var=False)
 
-'''
-# Mean Difference of the score based on digital products
-score_mean_dig = df[df['digital_product'] == True]['classification_score'].mean()
-score_mean_non_dig = df[df['digital_product'] == False]['classification_score'].mean()
-score_mean = df['classification_score'].mean()
-difference = score_mean_non_dig - score_mean_dig
-difference_to_mean = score_mean - score_mean_dig
-
-# the difference is > 5% making digital products riskier than non ones.
-# overall the difference in mean in digital products is about 1.7% which isn't as risky though it deviates.
-
-# number of chargebacks for each category:
+# Chargeback counts
 digital_chargebacks = df[(df['digital_product'] == True) & (df['order_status'] == 'chargeback')].shape[0]
 non_digital_chargebacks = df[(df['digital_product'] == False) & (df['order_status'] == 'chargeback')].shape[0]
 
-# let's calculate the standard error (SE) to assess the risk's
-# reliability of each since the dataset is very small:
+# Chargeback rate comparison
+digital_cb_rate = digital_chargebacks / df[df['digital_product'] == True].shape[0]
+non_digital_cb_rate = non_digital_chargebacks / df[df['digital_product'] == False].shape[0]
 
-SE = math.sqrt((1 / (score_mean_dig * digital_chargebacks)) + (1 / (score_mean_non_dig * non_digital_chargebacks)))
-# a SE of 0.17 means that although the dataset being checked is small, the results are quite reliable
+print(f"Digital Products - Mean Score: {digital_mean_score:.2f}, Chargeback Rate: {digital_cb_rate:.2%}")
+print(f"Non-Digital Products - Mean Score: {non_digital_mean_score:.2f}, Chargeback Rate: {non_digital_cb_rate:.2%}")
+print(f"T-test p-value: {p_val:.3f} (indicates {'significant' if p_val < 0.05 else 'no significant'} difference)")
 
-# let's look at how riskier digital products are compared with non ones.
-dig_to_nodig_chargeback_ratio = digital_chargebacks / non_digital_chargebacks
+### Task 5: Additional Insights
+# Insight 1: Customer Account Age Analysis
+plt.hist(df['customer_account_age'], bins=50, color='lightcoral', edgecolor='black')
+plt.title('Customer Account Age Distribution')
+plt.xlabel('Customer Account Age (days)')
+plt.ylabel('Order Count')
+plt.show()
 
-# taking into account our SE of 0.17: it seems that
-# digital products are 6.5 to 8 times more likely to  have a chargeback
+# Average price by account age to find profitable age groups
+age_price_means = df.groupby(pd.cut(df['customer_account_age'], bins=10))['price'].mean()
+age_price_means.plot(kind='bar', color='teal', edgecolor='black')
+plt.title('Average Price by Customer Account Age Group')
+plt.xlabel('Customer Account Age Group (days)')
+plt.ylabel('Average Order Price')
+plt.show()
 
-'''
-5.
-We are asked to find additional interesting insights.
+# Insight 2: Order Source Analysis
+source_counts = df['order_source'].value_counts(normalize=True) * 100
+source_counts.plot(kind='bar', color='purple', edgecolor='black')
+plt.title('Order Source Distribution')
+plt.xlabel('Order Source')
+plt.ylabel('Percentage of Orders')
+plt.show()
 
-'''
+# Analysis of mean order value per source
+source_price_means = df.groupby('order_source')['price'].mean()
+source_price_means.plot(kind='bar', color='orange', edgecolor='black')
+plt.title('Average Order Value by Order Source')
+plt.xlabel('Order Source')
+plt.ylabel('Average Order Value')
+plt.show()
 
-# 1. customer_account_age_insights:
+# Additional Insight: Web vs Mobile Risk Analysis
+# Here, we compare chargeback rates between web and mobile orders
+web_cb_rate = df[(df['order_source'] == 'web') & (df['order_status'] == 'chargeback')].shape[0] / df[df['order_source'] == 'web'].shape[0]
+mobile_cb_rate = df[(df['order_source'] == 'mobile_app') & (df['order_status'] == 'chargeback')].shape[0] / df[df['order_source'] == 'mobile_app'].shape[0]
+print(f"Web Chargeback Rate: {web_cb_rate:.2%}, Mobile App Chargeback Rate: {mobile_cb_rate:.2%}")
 
-# let's firstly check the distribution:
-plt.hist(df['customer_account_age'], bins=100)
-plt.title('customer_account_age distribution')
-plt.xlabel('customer_account_age')
-plt.ylabel('orders count')
-
-# we notice most of the orders are of customers with an account age between 0 and 1500.
-
-# let's check if the mean prices of these orders is higher than the mean of price per order:
-price_mean = df['price'].mean()  # 396$
-common_orders_mean = df[df['customer_account_age'] <= 1500]['price'].mean()
-# 408$
-# it seems the mean price of orders with account_age of
-# 0 to 1500 is a lil higher than the regular price mean, making this range more profitable than average.
-
-# let's also see how price is affected by account_age to target the most profitable accounts:
-mean_price_by_age = df.groupby('customer_account_age')['price'].mean()
-plt.plot(mean_price_by_age.index, mean_price_by_age.values)
-plt.xlabel('Customer Account Age')
-plt.ylabel('Average Price')
-plt.title('Average Price by Customer Account Age')
-
-# it seems that the area of 2000 is the most profitable.
-price_mean_discard_2000 = df[(df['customer_account_age'] >= 1950) & (df['customer_account_age'] <= 2050)][
-    'price'].mean()
-# = 645$
-
-# 2. order_source insights:
-
-# let's look at the distribution:
-
-order_source_dist = df['order_source'].value_counts()
-web_ratio = df[df['order_source'] == 'web'].shape[0] / df.shape[0]
-mobile_app_ratio = df[df['order_source'] == 'mobile_app'].shape[0] / df.shape[0]
-
-# 98% of orders were placed through the web.
-
-# we expect to get similar ratio when comparing price mean based on order source.
-# let's check:
-
-web_ratio_price_mean = df[df['order_source'] == 'web']['price'].sum() / df['price'].sum()
-app_ratio_price_mean = df[df['order_source'] == 'mobile_app']['price'].sum() / df['price'].sum()
-app_dif_ratio = mobile_app_ratio / app_ratio_price_mean
-# we notice that the orders price placed on the app are also approximately 5 times lower.
-
-# let's also look at dist of each by time:
-
-order_source_df = df[df['order_source'].isin(['mobile_app', 'web'])]
-order_counts = order_source_df.groupby(['order_date', 'order_source']).size().unstack(fill_value=0)
-
-# Plot
-order_counts.plot(kind='area', stacked=True, alpha=0.6, figsize=(12, 6))
-plt.xlabel('order_date')
-plt.ylabel('number_of_orders')
-plt.title('Distribution of Mobile & Web')
-plt.legend(title='type of source')
-# we can see that app is quite low stable, and web is volatile, especially high around the 15th.
-
-# Results:
-# 1
-print(decline_threshold)
-# 3
-print(business_model_fee)
+# Final Print Statements for Clear Results Summary
+print(f"\nSummary of Results:\n- Decline Threshold: {decline_threshold}\n- Business Model Fee Required: {business_model_fee:.2%}")
+print(f"- Digital Product Risk: Digital products show {'higher' if digital_cb_rate > non_digital_cb_rate else 'lower'} risk compared to tangible products.")
+print(f"- Web orders have {'higher' if web_cb_rate > mobile_cb_rate else 'lower'} risk than mobile app orders.")
