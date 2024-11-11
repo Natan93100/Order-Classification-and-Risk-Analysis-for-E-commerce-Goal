@@ -10,7 +10,7 @@ and the Brain Science Field (if you do also, I HIGHLY encourage you to give 'The
 professionaly speaking, I hold a B.sc in Data-Science; During my studies, I gained the ability to work with complex data and developed an eye for identifying patterns and trends.<br> I also gained experience in laboratory techniques, data management, and statistical analysis, which I believe will be valuable assets in my role as a data analyst.<br>
 Besides my acadmic knowledge and tools, I also have a proffesional background in working as a data analyst where I gained most of my knowledge, skills and tools.
 ## Skills used:
-- **Python Modeling**: Machine learning, data preprocessing, and automation
+- **Python Modeling**: data preprocessing, and automation
 - **Statistics**: Hypothesis testing, regression analysis, and probability
 
 
@@ -28,4 +28,10 @@ associated with chargebacks and different product types (digital vs. tangible).
 This code performs a comprehensive analysis of e-commerce order data from a CSV file.<br>
 Key tasks include calculating an approval threshold, visualizing order distribution, analyzing revenue-related metrics, assessing <br>
 product risk by type, and extracting insights on customer behavior and order sources.
+
+![Uploading Screenshot 2024-11-07 at 20.19.39.png…]()
+
+![Uploading Screenshot 2024-11-07 at 21.16.51.png…]()
+
+
 
