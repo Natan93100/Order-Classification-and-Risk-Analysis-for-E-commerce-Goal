@@ -16,7 +16,7 @@ Besides my acadmic knowledge and tools, I also have a proffesional background in
 
 # Order Classification and Risk Analysis for E-commerce<br>
 
-for the code click [here](https://github.com/Natan93100/Coding/blob/main/Fractal%20Explorer%20with%20Mandelbrot%20and%20Julia%20Set%20Visualizations.py)
+for the code click [here](main.py)
 
 
 **Goal:**<br>
@@ -29,9 +29,9 @@ This code performs a comprehensive analysis of e-commerce order data from a CSV 
 Key tasks include calculating an approval threshold, visualizing order distribution, analyzing revenue-related metrics, assessing <br>
 product risk by type, and extracting insights on customer behavior and order sources.
 
-![Uploading Screenshot 2024-11-07 at 20.19.39.png…]()
+<img width="812" alt="Screenshot 2024-11-07 at 20 19 39" src="https://github.com/user-attachments/assets/9d243ce3-f8d1-48d0-9e1f-d5ed6ee0f448">
 
-![Uploading Screenshot 2024-11-07 at 21.16.51.png…]()
 
+<img width="812" alt="Screenshot 2024-11-07 at 20 20 05" src="https://github.com/user-attachments/assets/dc8e43f8-ca76-4e16-b8f7-9fb657785647">
 
 
