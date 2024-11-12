@@ -33,7 +33,8 @@ product risk by type, and extracting insights on customer behavior and order sou
 
 
 <img width="908" alt="Screenshot 2024-11-11 at 19 17 22" src="https://github.com/user-attachments/assets/31cab23b-036a-4d56-8eba-8622d5f7b1cd">
-<img width="908" alt="Screenshot 2024-11-11 at 19 17 06" src="https://github.com/user-attachments/assets/81560cf2-91ca-40f7-8398-ee6c21d5de3c">
-<img width="908" alt="Screenshot 2024-11-11 at 19 17 59" src="https://github.com/user-attachments/assets/44601818-12f7-46cf-8e81-7e51adf26ac2">
+
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 59" src="https://github.com/user-attachm<img width="955" alt="Screenshot 2024-11-12 at 6 26 26" src="https://github.com/user-attachments/assets/eb15ac2f-964a-4a40-a280-b95355d96813">
+ents/assets/44601818-12f7-46cf-8e81-7e51adf26ac2">
 <img width="908" alt="Screenshot 2024-11-11 at 19 17 51" src="https://github.com/user-attachments/assets/9c56f021-673b-4d43-a67b-ca971e8e5cc6">
 <img width="908" alt="Screenshot 2024-11-11 at 19 17 33" src="https://github.com/user-attachments/assets/79b04330-913c-4777-9c7e-df66a3ffc232">
