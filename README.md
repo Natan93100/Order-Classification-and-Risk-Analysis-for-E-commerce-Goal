@@ -30,11 +30,8 @@ This code performs a comprehensive analysis of e-commerce order data from a CSV 
 Key tasks include calculating an approval threshold, visualizing order distribution, analyzing revenue-related metrics, assessing <br>
 product risk by type, and extracting insights on customer behavior and order sources.
 
-
-
-<img width="908" alt="Screenshot 2024-11-11 at 19 17 22" src="https://github.com/user-attachments/assets/31cab23b-036a-4d56-8eba-8622d5f7b1cd">
-
-<img width="908" alt="Screenshot 2024-11-11 at 19 17 59" src="https://github.com/user-attachm<img width="955" alt="Screenshot 2024-11-12 at 6 26 26" src="https://github.com/user-attachments/assets/eb15ac2f-964a-4a40-a280-b95355d96813">
-ents/assets/44601818-12f7-46cf-8e81-7e51adf26ac2">
-<img width="908" alt="Screenshot 2024-11-11 at 19 17 51" src="https://github.com/user-attachments/assets/9c56f021-673b-4d43-a67b-ca971e8e5cc6">
-<img width="908" alt="Screenshot 2024-11-11 at 19 17 33" src="https://github.com/user-attachments/assets/79b04330-913c-4777-9c7e-df66a3ffc232">
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 22" src="https://github.com/user-attachments/assets/320b2e41-7a1e-4e54-b3e9-70a0fc992723">
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 59" src="https://github.com/user-attachments/assets/43f21478-211d-4e3e-a202-c616efc4d49f">
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 51" src="https://github.com/user-attachments/assets/7a3ec3df-4edf-430d-bc91-c5ca767656a3">
+<img width="955" alt="Screenshot 2024-11-12 at 6 26 26" src="https://github.com/user-attachments/assets/c7143022-cf51-4e9d-ac0e-4b070a3fae7a">
+<img width="908" alt="Screenshot 2024-11-11 at 19 17 33" src="https://github.com/user-attachments/assets/fbc38e4f-2b7d-4cdd-b141-3b688fa92be4">
